@@ -23,34 +23,21 @@
             <button class="btn" onclick="showPage('pageOrder')">🎮 Pterodactyl Panel</button>
             <button class="btn" onclick="showPage('pageReseller')">🤝 Buy Reseller Panel</button>
         </div>
-
         <div id="pageOrder" class="page hidden">
             <button class="btn" onclick="showPage('pageDashboard')">← Kembali</button>
             <div class="card">
                 <select id="pkgSelect"></select>
                 <input type="text" id="usernameInput" placeholder="Username">
                 <button class="btn" id="btnOrder">Bayar via QRIS</button>
-                
-                <div id="qrisContainer" class="hidden" style="margin-top: 20px;">
-                    <h3 style="color:var(--neon);">Scan QRIS Berikut:</h3>
-                    <img id="qrisImage" src="" style="width: 250px; height: 250px; border: 5px solid white; border-radius: 10px;">
-                    <p id="qrisStatus" style="color: #34d399; margin: 15px 0;">Menunggu Pembayaran...</p>
-                    <a id="btnBayarApp" class="btn" target="_blank">Buka di E-Wallet</a>
-                </div>
-
                 <div id="resultArea" class="hidden">
                     <pre id="rawText" style="color:#34d399;"></pre>
                     <button class="btn" id="btnCopyAll">📋 Salin Data</button>
                 </div>
             </div>
         </div>
-
         <div id="pageReseller" class="page hidden">
             <button class="btn" onclick="showPage('pageDashboard')">← Kembali</button>
-            <div class="card">
-                <h3>Daftar Reseller</h3>
-                <button class="btn" id="btnOrderReseller">Daftar Sekarang</button>
-            </div>
+            <div class="card"><h3>Daftar Reseller</h3><button class="btn" id="btnOrderReseller">Daftar Sekarang</button></div>
         </div>
     </div>
     <script src="config.js"></script>
