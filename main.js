@@ -15,24 +15,31 @@ async function deployPtero(u, pKey) {
 }
 
 async function createOrder(amount, isReseller, u = "") {
-    const id = (isReseller ? "RESS-" : "PAN-") + Date.now();
-    const frame = isReseller ? document.getElementById('frameReseller') : document.getElementById('qrisFrame');
-    frame.src = `https://app.pakasir.com/pay/${config.pakasir.project}/${amount}?order_id=${id}`;
-    frame.classList.remove('hidden');
+    const id = (isReseller ? "RES-" : "REY-") + Date.now();
+    const qrisContainer = document.getElementById('qrisContainer');
+    const qrisImage = document.getElementById('qrisImage');
+    const btnBayarApp = document.getElementById('btnBayarApp');
+    const paymentUrl = `https://app.pakasir.com/pay/${config.pakasir.project}/${amount}?order_id=${id}`;
+
+    // Tampilkan QRIS sebagai gambar
+    qrisImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(paymentUrl)}`;
+    btnBayarApp.href = paymentUrl;
+    qrisContainer.classList.remove('hidden');
+    
+    // Polling Status
     const check = setInterval(async () => {
-        const res = await axios.get(`https://app.pakasir.com/api/transactiondetail?api_key=${config.pakasir.apiKey}&project=${config.pakasir.project}&order_id=${id}&amount=${amount}`);
-        if(res.data.transaction?.status === 'completed') {
-            clearInterval(check);
-            if(!isReseller) {
-                deployPtero(u, document.getElementById('pkgSelect').value);
-                const pkgName = document.getElementById('pkgSelect').options[document.getElementById('pkgSelect').selectedIndex].text;
-                axios.post('/api/testi', { price: amount, pkg: pkgName, type: 'panel', user: u });
-            } else { 
-                alert("Reseller Aktif!"); 
-                axios.post('/api/testi', { price: amount, pkg: 'Reseller', type: 'reseller' });
+        try {
+            const res = await axios.get(`https://app.pakasir.com/api/transactiondetail?api_key=${config.pakasir.apiKey}&project=${config.pakasir.project}&order_id=${id}&amount=${amount}`);
+            if(res.data.transaction?.status === 'completed') {
+                clearInterval(check);
+                document.getElementById('qrisStatus').innerText = "✅ PEMBAYARAN SUKSES!";
+                const pkgName = isReseller ? 'Reseller' : document.getElementById('pkgSelect').options[document.getElementById('pkgSelect').selectedIndex].text;
+                axios.post('/api/testi', { price: amount, pkg: pkgName, type: isReseller ? 'reseller' : 'panel', user: u });
+                if(!isReseller) deployPtero(u, document.getElementById('pkgSelect').value);
             }
-        }
+        } catch (e) { console.log("Menunggu..."); }
     }, 5000);
 }
+
 document.getElementById('btnOrder').onclick = () => createOrder(config.prices[document.getElementById('pkgSelect').value], false, document.getElementById('usernameInput').value);
 document.getElementById('btnOrderReseller').onclick = () => createOrder(config.resellerPrice, true);
