@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8"><title>ReyzCloud | Premium</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        :root { --neon: #8b5cf6; --bg: #0b0f19; }
+        body { background: var(--bg); color: white; font-family: 'Orbitron', sans-serif; display: flex; justify-content: center; padding: 20px; min-height: 100vh; margin: 0; }
+        .container { width: 100%; max-width: 400px; text-align: center; }
+        .card { background: rgba(20, 20, 30, 0.6); backdrop-filter: blur(10px); border: 1px solid var(--neon); padding: 20px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 0 15px rgba(139, 92, 246, 0.3); }
+        .btn { background: transparent; border: 1px solid var(--neon); color: white; padding: 15px; width: 100%; border-radius: 12px; margin-top: 10px; cursor: pointer; transition: 0.3s; }
+        .btn:hover { background: var(--neon); box-shadow: 0 0 20px var(--neon); }
+        .hidden { display: none !important; }
+        input, select { width: 100%; padding: 12px; background: #000; color: white; border: 1px solid var(--neon); border-radius: 8px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="pageDashboard" class="page"><h1 style="text-shadow: 0 0 15px var(--neon);">ReyzCloud</h1><div class="card"><video src="https://g.top4top.io/m_3672d3e6p5.mp4" autoplay loop muted playsinline style="width:100%; border-radius:15px;"></video></div><button class="btn" onclick="showPage('pageOrder')">🎮 Pterodactyl Panel</button><button class="btn" onclick="showPage('pageReseller')">🤝 Buy Reseller Panel</button></div>
+        <div id="pageOrder" class="page hidden"><button class="btn" onclick="showPage('pageDashboard')">← Kembali</button><div class="card"><select id="pkgSelect"></select><input type="text" id="usernameInput" placeholder="Username"><button class="btn" id="btnOrder">Bayar via QRIS</button><iframe id="qrisFrame" class="hidden" style="width:100%; height:300px; border:none; border-radius:15px; margin-top:15px;"></iframe><div id="resultArea" class="hidden"><pre id="rawText" style="color:#34d399;"></pre><button class="btn" id="btnCopyAll">📋 Salin Data</button></div></div></div>
+        <div id="pageReseller" class="page hidden"><button class="btn" onclick="showPage('pageDashboard')">← Kembali</button><div class="card"><h3>Daftar Reseller</h3><button class="btn" id="btnOrderReseller">Daftar Sekarang</button><iframe id="frameReseller" class="hidden" style="width:100%; height:300px; border:none; border-radius:15px; margin-top:15px;"></iframe></div></div>
+    </div>
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
