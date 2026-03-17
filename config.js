@@ -7,8 +7,8 @@ const config = {
         project: "reyclouddev"
     },
     resellerPrice: 7000,
-    domain: "https://reytzy.panel-ptrodactyl.my.id",
-    plta: "ptla_1wmZDgM46tVA3Rq8fyCua3SEh82ovv6AqzDbnbdooqr",
+    domain: "https://otwbro.xyzid.store",
+    plta: "ptla_6OeP6FouxpLFg0JQOnqIy7zjFUIpHwzsDIWXijD8Mcb",
     eggs: "15", nest: "5", loc: "1",
   
     prices: {
